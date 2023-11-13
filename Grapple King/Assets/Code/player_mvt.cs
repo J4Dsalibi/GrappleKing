@@ -10,9 +10,8 @@ public class player_mvt : MonoBehaviour
     private bool jumpKeyWasPressed;
     private float horizontalInput;
     private Rigidbody rigidbodyComponent;
-    // Grapple Gun
-    private bool spaceWasPressed = false;
-    public Transform targetObject;
+    private int speed = 20;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +26,6 @@ public class player_mvt : MonoBehaviour
         {
             jumpKeyWasPressed = true;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            spaceWasPressed = true;
-        }
 
         horizontalInput = Input.GetAxis("Horizontal");
     }
@@ -39,19 +34,7 @@ public class player_mvt : MonoBehaviour
     private void FixedUpdate()
     {
         // Adjust the player's velocity based on horizontal input.
-        rigidbodyComponent.velocity = new Vector3(horizontalInput * 10, rigidbodyComponent.velocity.y, 0);
-
-        if (spaceWasPressed)
-        {
-            Debug.Log("Space bar pressed");
-            Vector3 direction = targetObject.position - transform.position;
-            Debug.Log("Direction: " + direction);
-            direction.z = 0;
-            direction.Normalize();
-            Debug.Log("Normalized Direction: " + direction);
-            rigidbodyComponent.AddForce(direction * 20, ForceMode.Impulse);
-            spaceWasPressed = false;
-        }
+        rigidbodyComponent.velocity = new Vector3(horizontalInput * speed, rigidbodyComponent.velocity.y, 0);
 
         if (Physics.OverlapSphere(groundcheckTransform.position, 0.1f).Length == 2)
         {
@@ -60,7 +43,7 @@ public class player_mvt : MonoBehaviour
 
         if (jumpKeyWasPressed)
         {
-            rigidbodyComponent.AddForce(Vector3.up * 12, ForceMode.VelocityChange);
+            rigidbodyComponent.AddForce(Vector3.up * 17, ForceMode.VelocityChange);
             jumpKeyWasPressed = false;
         }
     }

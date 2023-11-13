@@ -5,14 +5,14 @@ using UnityEngine;
 public class basic_pistol : MonoBehaviour
 {
     public float zOffset = -1.4f;
-    bool isPickedUp = false;
+    private bool isPickedUp = false;
     Transform playerTransform;
     public Transform targetObject; // Assign the target object in the Inspector.
 
     // Balle
     public GameObject bulletPrefab;
     public Transform gunMuzzle; // The point where bullets will be spawned.
-    public float bulletSpeed = 10.0f;
+    public float bulletSpeed = 14.0f;
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class basic_pistol : MonoBehaviour
 
                 // Set the Z rotation while preserving the existing Y and X rotations.
                 Vector3 currentRotation = transform.rotation.eulerAngles;
+
                 transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, newZRotation);
 
                 if (Input.GetMouseButtonDown(0)) // Assumes left mouse button for shooting
